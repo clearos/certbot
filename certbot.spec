@@ -1,22 +1,19 @@
-%global gh_commit 41f347d625a8d7a4f8108ea4c1923ff7e924732a
-%global gh_short %(c=%{gh_commit}; echo ${c:0:7})
+#%global gh_commit 41f347d625a8d7a4f8108ea4c1923ff7e924732a
+#%global gh_short %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner certbot
 %global gh_project certbot
 %global oldpkg letsencrypt
 
 Name:           %{gh_project}
 Version:        0.6.0
-Release:        1.0dev0git%{gh_short}%{?dist}
+#Release:        1.0dev0git%{gh_short}%{?dist}
+Release:        1
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
 URL:            https://github.com/certbot/certbot
 Source0:        https://github.com/certbot/certbot/archive/%{gh_short}.tar.gz
 
-# Due to acme 0.6.0 only coming with the new unreleased certbot 0.6.0 
-# Patch the setup.py to work with 0.5.0 and not require the unreleased 0.6.0 acme
-# This can be dropped when 0.6.0 is released
-Patch0:         build_against_acme_0.5.0.patch
 BuildArch:      noarch
 BuildRequires:  python2-devel
 
@@ -62,11 +59,7 @@ Requires:   python-zope-interface
 Requires:   python-zope-component
 Requires:   python-psutil >= 2.1.0
 Requires:   python-configobj
-# Use the 0.5.0 for the prerelease certbot 0.6.0 
-# But permit 0.6.0 acme when it is released
-Requires: python2-acme >= 0.5.0
-Requires: python2-acme < 0.7.0
-# Requires:   python2-acme = %{version}
+Requires:   python2-acme = %{version}
 Obsoletes:  python2-%{oldpkg} <  0.6.0
 Provides:   python2-%{oldpkg} = %{version}-%{release}
 Obsoletes:  python-%{oldpkg} <  0.6.0
@@ -118,6 +111,8 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-1
+- Update to 0.6.0
 * Thu May 12 2016 James Hogarth <james.hogarth@gmail.com> - 0.6.0-1.0dev0git41f347d
 - Update with compatibility symlink requested from upstream 
 - Update with fixes from review
