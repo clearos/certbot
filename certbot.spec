@@ -13,6 +13,10 @@ License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/certbot
 Source0:        https://pypi.python.org/packages/fc/eb/7594bf16d89909a9d52c46edbeae669d4b2ee6e12453bd97e674d0371920/certbot-0.6.0.tar.gz
 
+%if 0%{?rhel}
+Patch0:         allow-old-setuptools.patch
+%endif
+
 BuildArch:      noarch
 BuildRequires:  python2-devel
 
@@ -80,15 +84,15 @@ sed -i 's/certbot-auto/certbot/g' certbot/cli.py
 %py2_build
 
 # build documentation
-%{__python2} setup.py install --user
-make -C docs  man PATH=${HOME}/.local/bin:$PATH
+#%{__python2} setup.py install --user
+#make -C docs  man PATH=${HOME}/.local/bin:$PATH
 
 %install
 %py2_install
 # Add compatibility symlink as requested by upstream conference call
 ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 # Put the man pages in place
-install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
+#install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 
 
 %check
@@ -99,7 +103,7 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %doc README.rst CHANGES.rst CONTRIBUTING.md
 %{_bindir}/certbot
 %{_bindir}/%{oldpkg}
-%doc %attr(0644,root,root) %{_mandir}/man1/%{name}*
+#%doc %attr(0644,root,root) %{_mandir}/man1/%{name}*
 # project uses old letsencrypt dir for compatibility
 %ghost %dir %{_sysconfdir}/%{oldpkg}
 %ghost %dir %{_sharedstatedir}/%{oldpkg}

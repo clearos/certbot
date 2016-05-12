@@ -1,0 +1,31 @@
+From 29df561ee4c875b7b71e8ad79120379a234e51a3 Mon Sep 17 00:00:00 2001
+From: Robert Buchholz <rbu@goodpoint.de>
+Date: Fri, 4 Mar 2016 16:32:53 +0100
+Subject: [PATCH] Revert "Require setuptools>=1.0 in all packages that use the
+ cryptography lib."
+
+This reverts commit 55b63fca0dad0fae439bb3e453856987e37dea81.
+RHEL7 does not come with setuptools >= 1.0, but only 0.9.8.
+Since this dependency was only introduced as a workaround for a bug to
+enable later versions of cryptography (in particular, cryptography 1.2),
+we can safely revert this change until acme/letsencrypt actually uses
+newer setuptools features.
+
+Ref https://github.com/letsencrypt/letsencrypt/pull/2599
+---
+
+diff --git a/setup.py b/setup.py
+index b187e6f..cbf0ff8 100644
+--- a/setup.py
++++ b/setup.py
+@@ -45,9 +45,7 @@ install_requires = [
+     'pyrfc3339',
+     'python2-pythondialog>=3.2.2rc1',  # Debian squeeze support, cf. #280
+     'pytz',
+-    # For pkg_resources. >=1.0 so pip resolves it to a version cryptography
+-    # will tolerate; see #2599:
+-    'setuptools>=1.0',
++    'setuptools',  # pkg_resources
+     'six',
+     'zope.component',
+     'zope.interface',
