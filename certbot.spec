@@ -71,7 +71,7 @@ Summary:    Python 2 libraries used by certbot
 The python2 libraries to interface with certbot
 
 %prep
-%autosetup -n certbot-%{gh_commit}
+%autosetup -n certbot
 
 
 %build
