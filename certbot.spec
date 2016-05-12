@@ -6,8 +6,7 @@
 
 Name:           %{gh_project}
 Version:        0.6.0
-#Release:        1.0dev0git%{gh_short}%{?dist}
-Release:        1
+Release:        2
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -111,6 +110,8 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-2
+- Bump release to 2 since 1.0devXXX is greater than 1
 * Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-1
 - Update to 0.6.0
 * Thu May 12 2016 James Hogarth <james.hogarth@gmail.com> - 0.6.0-1.0dev0git41f347d
