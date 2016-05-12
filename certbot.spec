@@ -10,8 +10,8 @@ Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
-URL:            https://github.com/certbot/certbot
-Source0:        https://github.com/certbot/certbot/archive/%{gh_short}.tar.gz
+URL:            https://pypi.python.org/pypi/certbot
+Source0:        https://pypi.python.org/packages/fc/eb/7594bf16d89909a9d52c46edbeae669d4b2ee6e12453bd97e674d0371920/certbot-0.6.0.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
