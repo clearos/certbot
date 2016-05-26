@@ -1,17 +1,13 @@
-#%global gh_commit 41f347d625a8d7a4f8108ea4c1923ff7e924732a
-#%global gh_short %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_owner certbot
-%global gh_project certbot
 %global oldpkg letsencrypt
 
-Name:           %{gh_project}
+Name:           certbot
 Version:        0.6.0
 Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/certbot
-Source0:        https://pypi.python.org/packages/fc/eb/7594bf16d89909a9d52c46edbeae669d4b2ee6e12453bd97e674d0371920/certbot-0.6.0.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/c/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -41,8 +37,7 @@ BuildRequires: python-psutil >= 2.1.0
 BuildRequires: python-parsedatetime
 BuildRequires: python-configobj
 BuildRequires: python2-configargparse >= 0.10.0
-BuildRequires: python2-acme >= 0.5.0
-BuildRequires: python2-acme < 0.7.0
+BuildRequires: python2-acme = %{version}
 
 
 %description
