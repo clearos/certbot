@@ -71,7 +71,7 @@ The python2 libraries to interface with certbot
 
 %build
 # We are using certbot and not supporting certbot-auto
-sed -i 's/certbot-auto/certbot/g' certbot/cli.py
+sed -i 's/letsencrypt-auto/certbot/g' certbot/cli.py
 %py2_build
 
 # build documentation
