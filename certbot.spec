@@ -1,17 +1,13 @@
-#%global gh_commit 41f347d625a8d7a4f8108ea4c1923ff7e924732a
-#%global gh_short %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_owner certbot
-%global gh_project certbot
 %global oldpkg letsencrypt
 
-Name:           %{gh_project}
-Version:        0.6.0
-Release:        2%{?dist}
+Name:           certbot
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/certbot
-Source0:        https://pypi.python.org/packages/fc/eb/7594bf16d89909a9d52c46edbeae669d4b2ee6e12453bd97e674d0371920/certbot-0.6.0.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/c/%{name}/%{name}-%{version}.tar.gz
 
 %if 0%{?rhel}
 Patch0:         allow-old-setuptools.patch
@@ -45,8 +41,7 @@ BuildRequires: python-psutil >= 2.1.0
 BuildRequires: python-parsedatetime
 BuildRequires: python-configobj
 BuildRequires: python2-configargparse >= 0.10.0
-BuildRequires: python2-acme >= 0.5.0
-BuildRequires: python2-acme < 0.7.0
+BuildRequires: python2-acme = %{version}
 
 
 %description
@@ -80,7 +75,7 @@ The python2 libraries to interface with certbot
 
 %build
 # We are using certbot and not supporting certbot-auto
-sed -i 's/certbot-auto/certbot/g' certbot/cli.py
+sed -i 's/letsencrypt-auto/certbot/g' certbot/cli.py
 %py2_build
 
 # build documentation
@@ -114,6 +109,8 @@ ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Tue May 31 2016 James Hogarth <james.hogarth@gmail.com> - 0.7.0-1
+- Update to 0.7.0
 * Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-2
 - Bump release to 2 since 1.0devXXX is greater than 1
 * Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-1
