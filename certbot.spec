@@ -1,8 +1,8 @@
 %global oldpkg letsencrypt
 
 Name:           certbot
-Version:        0.6.0
-Release:        2%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -105,6 +105,8 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Tue May 31 2016 James Hogarth <james.hogarth@gmail.com> - 0.7.0-1
+- Update to 0.7.0
 * Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-2
 - Bump release to 2 since 1.0devXXX is greater than 1
 * Thu May 12 2016 Nick Bebout <nb@fedoraproject.org> - 0.6.0-1
