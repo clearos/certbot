@@ -2,7 +2,7 @@
 
 Name:           certbot
 Version:        0.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -70,8 +70,6 @@ The python2 libraries to interface with certbot
 
 
 %build
-# We are using certbot and not supporting certbot-auto
-sed -i 's/letsencrypt-auto/certbot/g' certbot/cli.py
 %py2_build
 
 # build documentation
@@ -105,6 +103,9 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Wed Jul 06 2016 Robert Buchholz <rbu@fedoraproject.org> - 0.8.1-2
+- Remove sed-replace that changes help output and code behavior, closes #1348391
+
 * Wed Jun 15 2016 Nick Bebout <nb@fedoraproject.org> - 0.8.1-1
 - Update to 0.8.1
 * Fri Jun 03 2016 james <james.hogarth@gmail.com> - 0.8.0-1
