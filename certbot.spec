@@ -2,7 +2,7 @@
 
 Name:           certbot
 Version:        0.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -103,6 +103,9 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.1-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Wed Jul 06 2016 Robert Buchholz <rbu@fedoraproject.org> - 0.8.1-2
 - Remove sed-replace that changes help output and code behavior, closes #1348391
 
