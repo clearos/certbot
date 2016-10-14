@@ -1,7 +1,7 @@
 %global oldpkg letsencrypt
 
 Name:           certbot
-Version:        0.9.2
+Version:        0.9.3
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -107,6 +107,8 @@ ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Fri Oct 14 2016 Nick Bebout <nb@fedoraproject.org> - 0.9.3-1
+- Update to 0.9.3
 * Thu Oct 13 2016 Nick Bebout <nb@fedoraproject.org> - 0.9.2-1
 - Update to 0.9.2
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.1-3
