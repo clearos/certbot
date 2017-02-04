@@ -11,6 +11,7 @@ Source0:        https://files.pythonhosted.org/packages/source/c/%{name}/%{name}
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
+BuildRequires:  python2-future
 %if 0%{?fedora} > 25
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1410631
 # until we figure out a better fix
