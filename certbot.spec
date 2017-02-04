@@ -2,7 +2,7 @@
 
 Name:           certbot
 Version:        0.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -57,6 +57,7 @@ Requires:   python-zope-interface
 Requires:   python-zope-component
 Requires:   python-psutil >= 2.1.0
 Requires:   python-configobj
+Requires:   python2-future
 Requires:   python2-acme = %{version}
 Obsoletes:  python2-%{oldpkg} <  0.6.0
 Provides:   python2-%{oldpkg} = %{version}-%{release}
@@ -107,6 +108,8 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-2
+- parsedatetime needs future but doesn't declare it
 * Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-1
 - Upgrade to 0.11.1
 * Thu Jan 05 2017 Adam Williamson <awilliam@redhat.com> - 0.9.3-2
