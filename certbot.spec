@@ -1,17 +1,13 @@
 %global oldpkg letsencrypt
 
 Name:           certbot
-Version:        0.9.3
-Release:        2%{?dist}
+Version:        0.11.1
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/certbot
 Source0:        https://files.pythonhosted.org/packages/source/c/%{name}/%{name}-%{version}.tar.gz
-
-# https://github.com/certbot/certbot/commit/0956e61c7c8653218bcaa46087d4508fc795feaa
-# drop use of sphinxcontrib-programoutput, rediffed for 0.9.3 tarball
-Patch0:         certbot-no-programoutput.patch
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -110,6 +106,8 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-1
+- Upgrade to 0.11.1
 * Thu Jan 05 2017 Adam Williamson <awilliam@redhat.com> - 0.9.3-2
 - Doc generation no longer needs sphinxcontrib-programoutput
 - Work around Python dep generator dependency problem (#1410631)
