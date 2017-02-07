@@ -1,8 +1,8 @@
 %global oldpkg letsencrypt
 
 Name:           certbot
-Version:        0.9.3
-Release:        1%{?dist}
+Version:        0.11.1
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -15,6 +15,12 @@ Patch0:         allow-old-setuptools.patch
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
+BuildRequires:  python2-future
+%if 0%{?fedora} > 25
+# workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1410631
+# until we figure out a better fix
+BuildRequires:  python3-setuptools
+%endif # fedora > 25
 
 Requires: python2-certbot = %{version}-%{release}
 Obsoletes: %{oldpkg} < 0.6.0
@@ -24,8 +30,6 @@ Provides: %{oldpkg} = %{version}-%{release}
 BuildRequires: python-sphinx
 BuildRequires: python-sphinx_rtd_theme
 BuildRequires: python-repoze-sphinx-autointerface
-BuildRequires: python-sphinxcontrib-programoutput
-
 
 #Require for testing
 BuildRequires: python-nose-xcover
@@ -57,6 +61,7 @@ Requires:   python-zope-interface
 Requires:   python-zope-component
 Requires:   python-psutil >= 2.1.0
 Requires:   python-configobj
+Requires:   python2-future
 Requires:   python2-acme = %{version}
 Obsoletes:  python2-%{oldpkg} <  0.6.0
 Provides:   python2-%{oldpkg} = %{version}-%{release}
@@ -70,7 +75,7 @@ Summary:    Python 2 libraries used by certbot
 The python2 libraries to interface with certbot
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 
 %build
@@ -107,6 +112,13 @@ ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-2
+- parsedatetime needs future but doesn't declare it
+* Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-1
+- Upgrade to 0.11.1
+* Thu Jan 05 2017 Adam Williamson <awilliam@redhat.com> - 0.9.3-2
+- Doc generation no longer needs sphinxcontrib-programoutput
+- Work around Python dep generator dependency problem (#1410631)
 * Fri Oct 14 2016 Nick Bebout <nb@fedoraproject.org> - 0.9.3-1
 - Update to 0.9.3
 * Thu Oct 13 2016 Nick Bebout <nb@fedoraproject.org> - 0.9.2-1
