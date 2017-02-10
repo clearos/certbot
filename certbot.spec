@@ -2,7 +2,7 @@
 
 Name:           certbot
 Version:        0.11.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -108,6 +108,9 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-2
 - parsedatetime needs future but doesn't declare it
 * Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-1
