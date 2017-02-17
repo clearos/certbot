@@ -25,6 +25,7 @@ BuildArch:      noarch
 
 %if %{with python3}
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-future
 %endif
 
 BuildRequires:  python2-devel
@@ -115,6 +116,7 @@ Requires:   python3-mock
 Requires:   python3-zope-interface
 Requires:   python3-zope-component
 Requires:   python3-psutil >= 2.1.0
+Requires:   python3-future
 Requires:   python3-configobj
 Requires:   python3-acme = %{version}
 Summary:    Python 3 libraries used by certbot
