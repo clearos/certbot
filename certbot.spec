@@ -135,8 +135,8 @@ The python3 libraries to interface with certbot
 %endif
 
 # build documentation
-%{__python2} setup.py install --user
-make -C docs  man PATH=${HOME}/.local/bin:$PATH
+# %{__python2} setup.py install --user
+# make -C docs  man PATH=${HOME}/.local/bin:$PATH
 
 %install
 %py2_install
@@ -146,7 +146,7 @@ make -C docs  man PATH=${HOME}/.local/bin:$PATH
 # Add compatibility symlink as requested by upstream conference call
 ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 # Put the man pages in place
-install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
+# install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 
 
 %check
@@ -160,7 +160,7 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %doc README.rst CHANGES.rst CONTRIBUTING.md
 %{_bindir}/certbot
 %{_bindir}/%{oldpkg}
-%doc %attr(0644,root,root) %{_mandir}/man1/%{name}*
+# %doc %attr(0644,root,root) %{_mandir}/man1/%{name}*
 # project uses old letsencrypt dir for compatibility
 %ghost %dir %{_sysconfdir}/%{oldpkg}
 %ghost %dir %{_sharedstatedir}/%{oldpkg}
