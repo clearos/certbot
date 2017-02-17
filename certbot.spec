@@ -1,24 +1,42 @@
 %global oldpkg letsencrypt
 
+# On fedora use python3 for certbot
+%if 0%{?fedora}
+%bcond_without python3
+%else
+%bcond_with python3
+%endif
+
+
 Name:           certbot
 Version:        0.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/certbot
 Source0:        https://files.pythonhosted.org/packages/source/c/%{name}/%{name}-%{version}.tar.gz
 
+%if 0%{?rhel}
+Patch0:         allow-old-setuptools.patch
+%endif
+
 BuildArch:      noarch
+
+%if %{with python3}
+BuildRequires:  python3-setuptools
+%endif
+
 BuildRequires:  python2-devel
 BuildRequires:  python2-future
-%if 0%{?fedora} > 25
-# workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1410631
-# until we figure out a better fix
-BuildRequires:  python3-setuptools
-%endif # fedora > 25
 
+# For the main certbot package require python3 version where built
+%if %{with python3}
+Requires: python3-certbot = %{version}-%{release}
+%else
 Requires: python2-certbot = %{version}-%{release}
+%endif
+
 Obsoletes: %{oldpkg} < 0.6.0
 Provides: %{oldpkg} = %{version}-%{release}
 
@@ -43,6 +61,23 @@ BuildRequires: python-configobj
 BuildRequires: python2-configargparse >= 0.10.0
 BuildRequires: python2-acme = %{version}
 
+%if %{with python3}
+#Require for testing
+BuildRequires: python3-nose-xcover
+BuildRequires: python3-pep8
+BuildRequires: python3-tox
+BuildRequires: python3-mock
+BuildRequires: python3-configargparse >= 0.10.0
+BuildRequires: python3-zope-interface
+BuildRequires: python3-zope-component
+BuildRequires: python3-requests
+BuildRequires: python3-dialog >= 3.3.0
+BuildRequires: python3-psutil >= 2.1.0
+BuildRequires: python3-parsedatetime
+BuildRequires: python3-configobj
+BuildRequires: python3-configargparse >= 0.10.0
+BuildRequires: python3-acme = %{version}
+%endif
 
 %description
 certbot is a free, automated certificate authority that aims
@@ -70,12 +105,34 @@ Summary:    Python 2 libraries used by certbot
 %description -n python2-certbot
 The python2 libraries to interface with certbot
 
+
+%if %{with python3}
+%package -n python3-certbot
+Requires:   python3-configargparse >= 0.10.0
+Requires:   python3-dialog >= 3.3.0
+Requires:   python3-parsedatetime
+Requires:   python3-mock
+Requires:   python3-zope-interface
+Requires:   python3-zope-component
+Requires:   python3-psutil >= 2.1.0
+Requires:   python3-configobj
+Requires:   python3-acme = %{version}
+Summary:    Python 3 libraries used by certbot
+
+%description -n python3-certbot
+The python3 libraries to interface with certbot
+
+%endif
+
 %prep
 %autosetup -n %{name}-%{version} -p1
 
 
 %build
 %py2_build
+%if %{with python3}
+%py3_build
+%endif
 
 # build documentation
 %{__python2} setup.py install --user
@@ -83,6 +140,9 @@ make -C docs  man PATH=${HOME}/.local/bin:$PATH
 
 %install
 %py2_install
+%if %{with python3}
+%py3_install
+%endif
 # Add compatibility symlink as requested by upstream conference call
 ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 # Put the man pages in place
@@ -91,6 +151,9 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 
 %check
 %{__python2} setup.py test
+%if %{with python3}
+%{__python3} setup.py test
+%endif
 
 %files
 %license LICENSE.txt
@@ -107,10 +170,18 @@ install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
 %{python2_sitelib}/%{name}
 %{python2_sitelib}/%{name}-%{version}*.egg-info
 
+%if %{with python3}
+%files -n python3-certbot
+%license LICENSE.txt
+%{python3_sitelib}/%{name}
+%{python3_sitelib}/%{name}-%{version}*.egg-info
+%endif
+
 %changelog
+* Fri Feb 17 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-4
+- change to python3 now certbot supports it
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
 * Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-2
 - parsedatetime needs future but doesn't declare it
 * Sat Feb 04 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-1
