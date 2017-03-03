@@ -120,6 +120,7 @@ Requires:   python3-future
 Requires:   python3-configobj
 Requires:   python3-acme = %{version}
 Summary:    Python 3 libraries used by certbot
+%{?python_provide:%python_provide python3-certbot}
 
 %description -n python3-certbot
 The python3 libraries to interface with certbot
