@@ -24,7 +24,7 @@ Patch0:         allow-old-setuptools.patch
 BuildArch:      noarch
 
 %if %{with python3}
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-devel
 BuildRequires:  python3-future
 %endif
 
