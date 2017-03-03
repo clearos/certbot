@@ -9,8 +9,8 @@
 
 
 Name:           certbot
-Version:        0.11.1
-Release:        4%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -180,6 +180,8 @@ ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 %endif
 
 %changelog
+* Fri Mar 03 2017 James Hogarth <james.hogarth@gmail.com> - 0.12.0-1
+- update to 0.12.0
 * Fri Feb 17 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-4
 - change to python3 now certbot supports it
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-3
