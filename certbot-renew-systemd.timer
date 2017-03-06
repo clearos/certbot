@@ -1,0 +1,10 @@
+[Unit]
+Description=This is the timer to set the schedule for automated renewals
+
+[Timer]
+OnCalendar=monthly
+AccuracySec=1week
+Persistent=true
+
+[Install]
+WantedBy=timer.target
