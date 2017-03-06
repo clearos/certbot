@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.12.0
-Release:        1%{?dist}
+Release:        2{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -31,12 +31,8 @@ BuildRequires:  python3-future
 BuildRequires:  python2-devel
 BuildRequires:  python2-future
 
-# For the main certbot package require python3 version where built
-%if %{with python3}
-Requires: python3-certbot = %{version}-%{release}
-%else
+# Upstream state python3 support is not ready yet so default to the py2 libraries
 Requires: python2-certbot = %{version}-%{release}
-%endif
 
 Obsoletes: %{oldpkg} < 0.6.0
 Provides: %{oldpkg} = %{version}-%{release}
@@ -143,19 +139,28 @@ The python3 libraries to interface with certbot
 
 %install
 %py2_install
+mv %{buildroot}%{_bindir}/certbot{,-2}
 %if %{with python3}
 %py3_install
+mv %{buildroot}%{_bindir}/certbot{,-3}
 %endif
 # Add compatibility symlink as requested by upstream conference call
 ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 # Put the man pages in place
 # install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
+# upstream state that certbot isn't ready for python3 yet so symlink the -2 version for now
+ln -s %{_bindir}/certbot-2 %{buildroot}%{_bindir}/certbot
 
 
 %check
 %{__python2} setup.py test
 %if %{with python3}
 %{__python3} setup.py test
+%endif
+# Make sure the scripts use the expected python versions
+grep -q %{__python2} %{buildroot}%{_bindir}/certbot-2
+%if %{with python3}
+grep -q %{__python3} %{buildroot}%{_bindir}/certbot-3
 %endif
 
 %files
@@ -172,15 +177,20 @@ ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 %license LICENSE.txt
 %{python2_sitelib}/%{name}
 %{python2_sitelib}/%{name}-%{version}*.egg-info
+%{_bindir}/certbot-2
 
 %if %{with python3}
 %files -n python3-certbot
 %license LICENSE.txt
 %{python3_sitelib}/%{name}
 %{python3_sitelib}/%{name}-%{version}*.egg-info
+%{_bindir}/certbot-3
 %endif
 
 %changelog
+* Mon Mar 06 2017 James Hogarth <james.hogarth@gmail.com> -0.12.0-2
+- upstream request not to use py3 yet so switch to py2 for default
+- include a py3 option for testing
 * Fri Mar 03 2017 James Hogarth <james.hogarth@gmail.com> - 0.12.0-1
 - update to 0.12.0
 * Fri Feb 17 2017 James Hogarth <james.hogarth@gmail.com> - 0.11.1-4
