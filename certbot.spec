@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.12.0
-Release:        2{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
