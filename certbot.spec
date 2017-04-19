@@ -22,8 +22,11 @@ Source11:       certbot-renew-systemd.timer
 Source12:       certbot-sysconfig-certbot
 Source13:       certbot-README.fedora
 
+# When running tests argparse is not recognised as provided by core
+Patch0:         certbot-argparse.patch
+
 %if 0%{?rhel}
-Patch0:         allow-old-setuptools.patch
+Patch1:         allow-old-setuptools.patch
 %endif
 
 BuildArch:      noarch
