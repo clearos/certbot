@@ -2,7 +2,7 @@
 
 The Fedora certbot package includes an optional systemd timer to handle renewals.
 
-This timer is set to run monthly, with a random fudge factor of a week applied.
+This timer is set to run daily, with a random fudge factor of a 6 hours applied.
 
 To enable the timer based renewals:
 
