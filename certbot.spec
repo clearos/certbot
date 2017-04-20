@@ -9,8 +9,8 @@
 
 
 Name:           certbot
-Version:        0.12.0
-Release:        4%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -22,8 +22,11 @@ Source11:       certbot-renew-systemd.timer
 Source12:       certbot-sysconfig-certbot
 Source13:       certbot-README.fedora
 
+# When running tests argparse is not recognised as provided by core
+Patch0:         certbot-argparse.patch
+
 %if 0%{?rhel}
-Patch0:         allow-old-setuptools.patch
+Patch1:         allow-old-setuptools.patch
 %endif
 
 BuildArch:      noarch
@@ -212,6 +215,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Wed Apr 19 2017 James Hogarth <james.hogarth@gmail.com> - 0.13.0-1
+* Update to 0.13.0
+- Timer tweaks bz#1441846
 * Tue Mar 07 2017 James Hogarth <james.hogarth@gmail.com> - 0.12.0-4
 - Up the timer to daily at the request of upstream
 * Mon Mar 06 2017 James Hogarth <james.hogarth@gmail.com> - 0.12.0-3

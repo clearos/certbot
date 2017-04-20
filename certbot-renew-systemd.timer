@@ -3,7 +3,7 @@ Description=This is the timer to set the schedule for automated renewals
 
 [Timer]
 OnCalendar=daily
-AccuracySec=6hours
+RandomizedDelaySec=6hours
 Persistent=true
 
 [Install]
