@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -215,6 +215,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Fri Apr 28 2017 James Hogarth <james.hogarth@gmail.com> - 0.13.0-2
+- Incorrect target for timer
+
 * Wed Apr 19 2017 James Hogarth <james.hogarth@gmail.com> - 0.13.0-1
 * Update to 0.13.0
 - Timer tweaks bz#1441846
