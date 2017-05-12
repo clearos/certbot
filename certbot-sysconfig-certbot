@@ -6,7 +6,10 @@
 # obtained/renewed. When renewing several certificates
 # that have identical pre-hooks, only the first will be
 # executed. (default: None)
-PRE_HOOK="''"
+#
+# An example to stop the MTA before updating certs would be
+# PRE_HOOK="--pre-hook 'systemctl stop postfix'"
+PRE_HOOK=""
 
 # Command to be run in a shell after attempting to
 # obtain/renew certificates. Can be used to deploy
@@ -17,8 +20,8 @@ PRE_HOOK="''"
 # hooks, only one will be run. (default: None)
 #
 # An example to restart httpd would be:
-# POST_HOOK="'systemctl restart httpd'"
-POST_HOOK="''"
+# POST_HOOK="--post-hook 'systemctl restart httpd'"
+POST_HOOK=""
 
 # Command to be run in a shell once for each
 # successfully renewed certificate. For this command,
@@ -27,7 +30,10 @@ POST_HOOK="''"
 # keys; the shell variable $RENEWED_DOMAINS will contain
 # a space-delimited list of renewed cert domains
 # (default: None)
-RENEW_HOOK="''"
+#
+# An example to run a script to alert each cert would be:
+# RENEW_HOOK="--renew-hook /usr/local/bin/cert-notifier.sh"
+RENEW_HOOK=""
 
 # Any other misc arguments for the renewal
 # See certbot -h renew for full list
