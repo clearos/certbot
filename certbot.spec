@@ -9,7 +9,7 @@
 
 
 Name:           certbot
-Version:        0.14.0
+Version:        0.14.1
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -212,6 +212,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Tue May 16 2017 James Hogarth <james.hogarth@gmail.com> - 0.14.1-1
+- Update to 0.14.1
+
 * Fri May 12 2017 James Hogarth <james.hogarth@gmail.com> - 0.14.0-1
 - Update to 0.14.0
 - Fix for bz#1444814
