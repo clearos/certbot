@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.14.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -212,6 +212,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Wed May 17 2017 James Hogarth <james.hogarth@gmail.com> - 0.14.1-2
+- Tweaks to the renew service bz#1444814
+
 * Tue May 16 2017 James Hogarth <james.hogarth@gmail.com> - 0.14.1-1
 - Update to 0.14.1
 
