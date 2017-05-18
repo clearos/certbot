@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.14.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -44,8 +44,12 @@ BuildRequires:  systemd
 Requires(post):   %{_sbindir}/semanage
 Requires(postun): %{_sbindir}/semanage
 
-# Upstream state python3 support is not ready yet so default to the py2 libraries
+# On F26+ use python3
+%if 0%{?fedora} >= 26
+Requires: python3-certbot = %{version}-%{release}
+%else
 Requires: python2-certbot = %{version}-%{release}
+%endif
 
 Obsoletes: %{oldpkg} < 0.6.0
 Provides: %{oldpkg} = %{version}-%{release}
@@ -161,8 +165,12 @@ mv %{buildroot}%{_bindir}/certbot{,-3}
 ln -sf /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
 # Put the man pages in place
 # install -pD -t %{buildroot}%{_mandir}/man1 docs/_build/man/*1*
-# upstream state that certbot isn't ready for python3 yet so symlink the -2 version for now
+# On F26+ use python3
+%if 0%{?fedora} >= 26
+ln -s %{_bindir}/certbot-3 %{buildroot}%{_bindir}/certbot
+%else
 ln -s %{_bindir}/certbot-2 %{buildroot}%{_bindir}/certbot
+%endif
 install -Dm 0644 %{SOURCE10} %{buildroot}%{_unitdir}/certbot-renew.service
 install -Dm 0644 %{SOURCE11} %{buildroot}%{_unitdir}/certbot-renew.timer
 install -Dm 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/certbot
@@ -212,6 +220,10 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Thu May 18 2017 James Hogarth <james.hogarth@gmail.com> - 0.14.1-3
+- Further tweaks after upstream feedback
+- On F26+ use python3
+
 * Wed May 17 2017 James Hogarth <james.hogarth@gmail.com> - 0.14.1-2
 - Tweaks to the renew service bz#1444814
 
