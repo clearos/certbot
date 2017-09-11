@@ -9,8 +9,8 @@
 
 
 Name:           certbot
-Version:        0.14.1
-Release:        4%{?dist}
+Version:        0.18.1
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -220,6 +220,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Sun Sep 10 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.1-1
+- Update to 0.18.1
+
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
