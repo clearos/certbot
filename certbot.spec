@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.18.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -55,23 +55,23 @@ Obsoletes: %{oldpkg} < 0.6.0
 Provides: %{oldpkg} = %{version}-%{release}
 
 # Required for documentation
-BuildRequires: python-sphinx
-BuildRequires: python-sphinx_rtd_theme
-BuildRequires: python-repoze-sphinx-autointerface
+BuildRequires: python2-sphinx
+BuildRequires: python2-sphinx_rtd_theme
+BuildRequires: python2-repoze-sphinx-autointerface
 
 #Require for testing
 BuildRequires: python-nose-xcover
 BuildRequires: python-pep8
-BuildRequires: python-tox
-BuildRequires: python-mock
-BuildRequires: python-configargparse >= 0.10.0
-BuildRequires: python-zope-interface
-BuildRequires: python-zope-component
-BuildRequires: python-requests
+BuildRequires: python2-tox
+BuildRequires: python2-mock
+BuildRequires: python2-configargparse >= 0.10.0
+BuildRequires: python2-zope-interface
+BuildRequires: python2-zope-component
+BuildRequires: python2-requests
 BuildRequires: python2-dialog >= 3.3.0
-BuildRequires: python-psutil >= 2.1.0
+BuildRequires: python2-psutil >= 2.1.0
 BuildRequires: python-parsedatetime
-BuildRequires: python-configobj
+BuildRequires: python2-configobj
 BuildRequires: python2-configargparse >= 0.10.0
 BuildRequires: python2-acme = %{version}
 
@@ -101,11 +101,11 @@ to lower the barriers to entry for encrypting all HTTP traffic on the internet.
 Requires:   python2-configargparse >= 0.10.0
 Requires:   python2-dialog >= 3.3.0
 Requires:   python-parsedatetime
-Requires:   python-mock
-Requires:   python-zope-interface
-Requires:   python-zope-component
-Requires:   python-psutil >= 2.1.0
-Requires:   python-configobj
+Requires:   python2-mock
+Requires:   python2-zope-interface
+Requires:   python2-zope-component
+Requires:   python2-psutil >= 2.1.0
+Requires:   python2-configobj
 Requires:   python2-future
 Requires:   python2-acme = %{version}
 Obsoletes:  python2-%{oldpkg} <  0.6.0
@@ -220,6 +220,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Mon Sep 18 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.1-2
+- Fix BuildRequires and Requires to use python2-* where applicable
+
 * Sun Sep 10 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.1-1
 - Update to 0.18.1
 
