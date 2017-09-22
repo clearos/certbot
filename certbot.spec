@@ -54,24 +54,26 @@ Requires: python2-certbot = %{version}-%{release}
 Obsoletes: %{oldpkg} < 0.6.0
 Provides: %{oldpkg} = %{version}-%{release}
 
+%if 0%{?fedora}
 # Required for documentation
-BuildRequires: python2-sphinx
-BuildRequires: python2-sphinx_rtd_theme
-BuildRequires: python2-repoze-sphinx-autointerface
+BuildRequires: python-sphinx
+BuildRequires: python-sphinx_rtd_theme
+BuildRequires: python-repoze-sphinx-autointerface
+%endif
 
 #Require for testing
 BuildRequires: python-nose-xcover
 BuildRequires: python-pep8
-BuildRequires: python2-tox
+BuildRequires: python-tox
 BuildRequires: python2-mock
 BuildRequires: python2-configargparse >= 0.10.0
-BuildRequires: python2-zope-interface
+BuildRequires: python-zope-interface
 BuildRequires: python2-zope-component
-BuildRequires: python2-requests
+BuildRequires: python-requests
 BuildRequires: python2-dialog >= 3.3.0
 BuildRequires: python2-psutil >= 2.1.0
 BuildRequires: python-parsedatetime
-BuildRequires: python2-configobj
+BuildRequires: python-configobj
 BuildRequires: python2-configargparse >= 0.10.0
 BuildRequires: python2-acme = %{version}
 
