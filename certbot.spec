@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.18.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -104,10 +104,10 @@ Requires:   python2-configargparse >= 0.10.0
 Requires:   python2-dialog >= 3.3.0
 Requires:   python-parsedatetime
 Requires:   python2-mock
-Requires:   python2-zope-interface
+Requires:   python-zope-interface
 Requires:   python2-zope-component
 Requires:   python2-psutil >= 2.1.0
-Requires:   python2-configobj
+Requires:   python-configobj
 Requires:   python2-future
 Requires:   python2-acme = %{version}
 Obsoletes:  python2-%{oldpkg} <  0.6.0
@@ -222,6 +222,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Fri Sep 22 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.2-2
+- Fix deps
+
 * Fri Sep 22 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.2-1
 - Update to 0.18.2
 
