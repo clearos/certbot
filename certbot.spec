@@ -9,7 +9,7 @@
 
 
 Name:           certbot
-Version:        0.18.2
+Version:        0.19.0
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -220,6 +220,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Fri Oct 06 2017 Eli Young <elyscape@gmail.com> - 0.19.0-1
+- Update to 0.19.0 (bz#1499368)
+
 * Fri Sep 22 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.2-1
 - Update to 0.18.2
 
