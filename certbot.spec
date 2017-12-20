@@ -9,7 +9,7 @@
 
 
 Name:           certbot
-Version:        0.19.0
+Version:        0.20.0
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -222,6 +222,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Wed Dec 20 2017 Eli Young <elyscape@gmail.com> - 0.20.0-1
+- Update to 0.20.0
+
 * Fri Oct 06 2017 Eli Young <elyscape@gmail.com> - 0.19.0-1
 - Update to 0.19.0 (bz#1499368)
 
