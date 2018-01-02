@@ -10,7 +10,7 @@
 
 Name:           certbot
 Version:        0.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        ASL 2.0
@@ -56,26 +56,35 @@ Provides: %{oldpkg} = %{version}-%{release}
 
 %if 0%{?fedora}
 # Required for documentation
-BuildRequires: python-sphinx
-BuildRequires: python-sphinx_rtd_theme
-BuildRequires: python-repoze-sphinx-autointerface
+BuildRequires: python2-sphinx
+BuildRequires: python2-sphinx_rtd_theme
+BuildRequires: python2-repoze-sphinx-autointerface
 %endif
 
 #Require for testing
 BuildRequires: python-nose-xcover
 BuildRequires: python-pep8
-BuildRequires: python-tox
 BuildRequires: python2-mock
 BuildRequires: python2-configargparse >= 0.10.0
-BuildRequires: python-zope-interface
 BuildRequires: python2-zope-component
-BuildRequires: python-requests
 BuildRequires: python2-dialog >= 3.3.0
 BuildRequires: python2-psutil >= 2.1.0
 BuildRequires: python-parsedatetime
-BuildRequires: python-configobj
 BuildRequires: python2-configargparse >= 0.10.0
 BuildRequires: python2-acme = %{version}
+
+%if 0%{?rhel} && 0%{?rhel} <= 7
+#EL7 has unversioned names for these packages
+BuildRequires: python-tox
+BuildRequires: python-zope-interface
+BuildRequires: python-requests
+BuildRequires: python-configobj
+%else
+BuildRequires: python2-tox
+BuildRequires: python2-zope-interface
+BuildRequires: python2-requests
+BuildRequires: python2-configobj
+%endif
 
 %if %{with python3}
 #Require for testing
@@ -104,12 +113,20 @@ Requires:   python2-configargparse >= 0.10.0
 Requires:   python2-dialog >= 3.3.0
 Requires:   python-parsedatetime
 Requires:   python2-mock
-Requires:   python-zope-interface
 Requires:   python2-zope-component
 Requires:   python2-psutil >= 2.1.0
-Requires:   python-configobj
 Requires:   python2-future
 Requires:   python2-acme = %{version}
+
+%if 0%{?rhel} && 0%{?rhel} <= 7
+#EL7 has unversioned names for these packages
+Requires:   python-zope-interface
+Requires:   python-configobj
+%else
+Requires:   python2-zope-interface
+Requires:   python2-configobj
+%endif
+
 Obsoletes:  python2-%{oldpkg} <  0.6.0
 Provides:   python2-%{oldpkg} = %{version}-%{release}
 Obsoletes:  python-%{oldpkg} <  0.6.0
@@ -222,6 +239,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %endif
 
 %changelog
+* Tue Jan 02 2018 Eli Young <elyscape@gmail.com> - 0.20.0-2
+- Unify Fedora and EPEL7 specs
+
 * Wed Dec 20 2017 Eli Young <elyscape@gmail.com> - 0.20.0-1
 - Update to 0.20.0
 
