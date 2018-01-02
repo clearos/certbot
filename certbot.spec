@@ -54,24 +54,26 @@ Requires: python2-certbot = %{version}-%{release}
 Obsoletes: %{oldpkg} < 0.6.0
 Provides: %{oldpkg} = %{version}-%{release}
 
+%if 0%{?fedora}
 # Required for documentation
-BuildRequires: python2-sphinx
-BuildRequires: python2-sphinx_rtd_theme
-BuildRequires: python2-repoze-sphinx-autointerface
+BuildRequires: python-sphinx
+BuildRequires: python-sphinx_rtd_theme
+BuildRequires: python-repoze-sphinx-autointerface
+%endif
 
 #Require for testing
 BuildRequires: python-nose-xcover
 BuildRequires: python-pep8
-BuildRequires: python2-tox
+BuildRequires: python-tox
 BuildRequires: python2-mock
 BuildRequires: python2-configargparse >= 0.10.0
-BuildRequires: python2-zope-interface
+BuildRequires: python-zope-interface
 BuildRequires: python2-zope-component
-BuildRequires: python2-requests
+BuildRequires: python-requests
 BuildRequires: python2-dialog >= 3.3.0
 BuildRequires: python2-psutil >= 2.1.0
 BuildRequires: python-parsedatetime
-BuildRequires: python2-configobj
+BuildRequires: python-configobj
 BuildRequires: python2-configargparse >= 0.10.0
 BuildRequires: python2-acme = %{version}
 
@@ -102,10 +104,10 @@ Requires:   python2-configargparse >= 0.10.0
 Requires:   python2-dialog >= 3.3.0
 Requires:   python-parsedatetime
 Requires:   python2-mock
-Requires:   python2-zope-interface
+Requires:   python-zope-interface
 Requires:   python2-zope-component
 Requires:   python2-psutil >= 2.1.0
-Requires:   python2-configobj
+Requires:   python-configobj
 Requires:   python2-future
 Requires:   python2-acme = %{version}
 Obsoletes:  python2-%{oldpkg} <  0.6.0
@@ -225,6 +227,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 
 * Fri Oct 06 2017 Eli Young <elyscape@gmail.com> - 0.19.0-1
 - Update to 0.19.0 (bz#1499368)
+
+* Fri Sep 22 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.2-2
+- Fix deps
 
 * Fri Sep 22 2017 Nick Bebout <nb@fedoraproject.org> - 0.18.2-1
 - Update to 0.18.2
